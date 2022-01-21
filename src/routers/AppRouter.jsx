@@ -14,7 +14,7 @@ const AppRouter = () => (
       <Routes>
         <Route path="/" element={<ExpenseDashboardPage />} exact={true} />
         <Route path="/create" element={<AddExpensePage />} />
-        <Route path="/edit" element={<EditExpensePage />} />
+        <Route path="/edit/:id" element={<EditExpensePage />} />
         <Route path="/help" element={<HelpPage />} />
         /* * TC note: Not sure about this since Switch * doesn't work
         react-router beyond 6.0.0. * Adding path just for purposes of continuing
