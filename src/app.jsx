@@ -1,34 +1,69 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Switch,
+  Link,
+  NavLink,
+} from 'react-router-dom';
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 
-ReactDom.render(<p>Expensify!</p>, document.getElementById('app'));
+const ExpenseDashboardPage = () => (
+  <div>This is from my dashboard component</div>
+);
 
-class OldSyntax {
-  constructor() {
-    this.name = 'Tim';
+const AddExpensePage = () => <div>This is from my add component</div>;
 
-    // needs to bind in constructor
-    this.getGreeting = this.getGreeting.bind(this);
-  }
+const EditExpensePage = () => <div>This is from my edit component</div>;
 
-  getGreeting() {
-    return `Hi, My name is ${this.name}.`;
-  }
-}
+const HelpPage = () => <div>This is from my help page</div>;
 
-const oldSyntax = new OldSyntax();
-const getGreeting = oldSyntax.getGreeting;
-console.log(getGreeting());
+const NotFound = () => (
+  <div>
+    Hello World?
+    <Link to="/">Go home</Link>
+  </div>
+);
 
-class NewSyntax {
-  name = 'Yay';
+const Header = () => (
+  <header>
+    <h1>Expensify</h1>
+    <div>
+      <NavLink to="/" activeClassName="is-active" exact={true}>
+        Home
+      </NavLink>
+      <NavLink to="/create" activeClassName="is-active">
+        Create Expense
+      </NavLink>
+      <NavLink to="/edit" activeClassName="is-active">
+        Edit Expense
+      </NavLink>
+      <NavLink to="/help" activeClassName="is-active">
+        Help
+      </NavLink>
+    </div>
+  </header>
+);
 
-  getGreeting = () => {
-    return `Hi, my name is ${this.name}.`;
-  };
-}
-const newSyntax = new NewSyntax();
-const newGetGreeting = newSyntax.getGreeting;
-console.log(newGetGreeting());
+const routes = (
+  <BrowserRouter>
+    <div>
+      <Header />
+      <Routes>
+        <Route path="/" element={<ExpenseDashboardPage />} exact={true} />
+        <Route path="/create" element={<AddExpensePage />} />
+        <Route path="/edit" element={<EditExpensePage />} />
+        <Route path="/help" element={<HelpPage />} />
+        /* * TC note: Not sure about this since Switch * doesn't work
+        react-router beyond 6.0.0. * Adding path just for purposes of continuing
+        */
+        <Route path="/notfound" element={<NotFound />} />
+      </Routes>
+    </div>
+  </BrowserRouter>
+);
+
+ReactDom.render(routes, document.getElementById('app'));

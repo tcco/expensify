@@ -27,5 +27,6 @@ module.exports = {
   // replacement for live-server
   devServer: {
     static: path.resolve(__dirname, 'public'),
+    historyApiFallback: true,
   },
 };
